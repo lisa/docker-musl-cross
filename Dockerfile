@@ -26,7 +26,7 @@ RUN apt-get update && \
 # Install musl-cross
 RUN mkdir /build &&                                                 \
     cd /build &&                                                    \
-    git clone https://github.com/GregorR/musl-cross.git &&          \
+    git clone https://github.com/lisa/musl-cross.git &&          \
     cd musl-cross &&                                                \
     echo 'GCC_BUILTIN_PREREQS=yes' >> config.sh &&                  \
     sed -i -e "s/^MUSL_VERSION=.*\$/MUSL_VERSION=1.1.19/" defs.sh &&  \
