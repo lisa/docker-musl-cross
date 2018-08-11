@@ -1,0 +1,4 @@
+steps:
+  - name: 'musl-compiler'
+    args: [ "build", "-f", "Dockerfile", "--tag=gcr.io/$PROJECT_ID/musl-cross", "." ]
+    timeout: "3600s"
