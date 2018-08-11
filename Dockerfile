@@ -1,5 +1,8 @@
 FROM debian:jessie
-MAINTAINER Andrew Dunham <andrew@du.nham.ca>
+# Upstream maintainer Andrew Dunham <andrew@du.nham.ca>
+
+# Maintainer of this fork is Lisa Seelye
+MAINTAINER Lisa Seelye <lisa@thedoh.com>
 
 # Install build tools
 RUN apt-get update && \
@@ -22,10 +25,10 @@ RUN apt-get update && \
 # Install musl-cross
 RUN mkdir /build &&                                                 \
     cd /build &&                                                    \
-    git clone https://github.com/GregorR/musl-cross.git &&          \
+    git clone https://github.com/lisa/musl-cross.git &&          \
     cd musl-cross &&                                                \
     echo 'GCC_BUILTIN_PREREQS=yes' >> config.sh &&                  \
-    sed -i -e "s/^MUSL_VERSION=.*\$/MUSL_VERSION=1.1.12/" defs.sh &&  \
+    sed -i -e "s/^MUSL_VERSION=.*\$/MUSL_VERSION=1.1.19/" defs.sh &&  \
     ./build.sh &&                                                   \
     cd / &&                                                         \
     apt-get clean &&                                                \
