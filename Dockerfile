@@ -1,6 +1,5 @@
 FROM debian:jessie
 # Upstream maintainer Andrew Dunham <andrew@du.nham.ca>
-#MAINTAINER Andrew Dunham <andrew@du.nham.ca>
 
 # Maintainer of this fork is Lisa Seelye
 MAINTAINER Lisa Seelye <lisa@thedoh.com>
