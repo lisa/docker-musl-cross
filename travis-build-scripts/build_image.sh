@@ -26,7 +26,7 @@ error_handler() {
 
 # Set up a repeating loop to send some output to Travis.
 
-bash -c "while true; do echo \$(date) - building ...; sleep $PING_SLEEP; done" &
+bash -c "while true; do echo -e \$(date -u)\n$(tail -n2 $BUILD_OUTPUT)\n; sleep $PING_SLEEP; done" &
 PING_LOOP_PID=$!
 
 # If an error occurs, run our error handler to output a tail of the build
