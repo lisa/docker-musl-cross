@@ -7,7 +7,7 @@ set -e
 # Works around 4MB Travis log limit
 
 export PING_SLEEP=30s
-export WORKDIR="$( cd "$( dirname "$0" )" && pwd )"
+export WORKDIR="$( cd "$( dirname "$0" )/.." && pwd )"
 export BUILD_OUTPUT=$WORKDIR/build.out
 
 touch $BUILD_OUTPUT
