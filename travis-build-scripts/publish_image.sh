@@ -18,7 +18,7 @@ if [[ -z $DOCKER_PASS ]]; then
   exit 1
 fi
 
-docker login -e=$DOCKER_MAIL -u=thedoh -p=$DOCKER_PASS
+echo $DOCKER_PASS | docker login -u=$DOCKER_USER --password-stdin
 if [[ $? -ne 0 ]]; then
   echo "Could not log in to Docker Hub (Exit: $?). Aborting."
   exit 1

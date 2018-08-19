@@ -16,6 +16,8 @@ services:
   - docker
 
 before_script:
+  - printenv | grep TRAVIS | grep -v PASS
+  - exit 1
   - echo "Log into docker hub"
   - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
 
