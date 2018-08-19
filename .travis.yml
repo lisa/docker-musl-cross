@@ -20,7 +20,7 @@ before_script:
   - docker login -u $DOCKER_USER -p=$DOCKER_PASS
 
 script:
-  - docker build -f Dockerfile -t thedoh/musl-cross:$TRAVIS_COMMIT .
+  - ./travis-build-scripts/build_image.sh
   
 after_success:
   - ./travis-build-scripts/publish_image.sh
