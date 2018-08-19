@@ -29,7 +29,7 @@ bash -c "while true; do date -u; tail -n 2 build.out; echo; sleep $PING_SLEEP; d
 PING_LOOP_PID=$!
 
 # If an error occurs, run our error handler to output a tail of the build
-trap "error_handler ${PING_LOOP_PID}" EXIT
+trap "error_handler ${PING_LOOP_PID}" ERR
 
 
 docker build -f Dockerfile -t thedoh/musl-cross:$TRAVIS_COMMIT . >> $BUILD_OUTPUT 2>&1
@@ -37,3 +37,4 @@ docker build -f Dockerfile -t thedoh/musl-cross:$TRAVIS_COMMIT . >> $BUILD_OUTPU
 dump_output
 
 kill $PING_LOOP_PID
+exit 0
