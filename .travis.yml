@@ -17,7 +17,7 @@ services:
 
 before_script:
   - echo "Log into docker hub"
-  - docker login -u $DOCKER_USER -p=$DOCKER_PASS
+  - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
 
 script:
   - ./travis-build-scripts/build_image.sh
