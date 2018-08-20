@@ -4,6 +4,11 @@ FROM debian:jessie
 # Maintainer of this fork is Lisa Seelye
 MAINTAINER Lisa Seelye <lisa@thedoh.com>
 
+# Build this version.
+# This is 'magic' for publishing too.
+
+ENV MUSL_VERSION=1.1.19
+
 # Install build tools
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get upgrade -yy && \
@@ -22,17 +27,20 @@ RUN apt-get update && \
         vim                 \
         wget
 
+
+
 # Install musl-cross
-RUN mkdir /build &&                                                 \
-    cd /build &&                                                    \
-    git clone https://github.com/lisa/musl-cross.git &&          \
-    cd musl-cross &&                                                \
-    echo 'GCC_BUILTIN_PREREQS=yes' >> config.sh &&                  \
-    sed -i -e "s/^MUSL_VERSION=.*\$/MUSL_VERSION=1.1.19/" defs.sh &&  \
-    ./build.sh &&                                                   \
-    cd / &&                                                         \
-    apt-get clean &&                                                \
+RUN mkdir /build &&                                                            \
+    cd /build &&                                                               \
+    git clone https://github.com/lisa/musl-cross.git &&                        \
+    cd musl-cross &&                                                           \
+    echo 'GCC_BUILTIN_PREREQS=yes' >> config.sh &&                             \
+    sed -i -e "s/^MUSL_VERSION=.*\$/MUSL_VERSION=${MUSL_VERSION}/" defs.sh &&  \
+    ./build.sh &&                                                              \
+    cd / &&                                                                    \
+    apt-get clean &&                                                           \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /build
+
 
 ENV PATH $PATH:/opt/cross/x86_64-linux-musl/bin
 CMD /bin/bash
