@@ -1,0 +1,28 @@
+branches:
+  only:
+  # Only build version branches and master
+  # so far musl has only followed this pattern, if it changes, so must
+  # this regex.
+  - /^\d{1,}\.\d{1,}\.\d{1,}$/
+  - master
+
+env:
+  - secure: "ZKHlJB0/HjGHyYT2pnHYyhLFncuGfTvRHK97Fc4ZWo4fsFFKDJEPpNgU7X3PJvpTsbgVAUJG8Hcq3eap4YmVTVVzMN/ptUibunywCzBGFbq3mrrx+tJUzO4roY3wdKjt3AYXZzBQnRL9m+m06Gk66BSDTyfSCoGqOoNiny0IkQ8captPJbu99IzHPgsER1nOH/8pvNf/emBgGbl+TydXhe49lUGecEhAhnBTL0kV7i8ahP9FynTKNAGZIzOFmnKtmz2HPn1OrNrv7nopmsT8aeHqFj/Wx1sxrIBzJ0v9irSU9bwa8yiXz+xgRzveqKJjQYeOUCyUICxXVYUIbU1Z8aw/2+KHA1iHZHDEtUrwzlUgVeVWqAcFsVyuQ/OTa2keBbbIzmUdet8XQGcW/6E0knM6er4M6oyUX89tD8R2O1OBsPBgEWK8wI2wJ8ZcFYu2d+4gYLcHe37dGBxPuwYwIp5kluUjZC4sB0I1i644U2qNBV7uzo/6ZciPA160LEsnk68/kCZM+puQ7gUdUbOAjnng4Nc9QjpecNK2u5xi1K+tfDOm0ARoot9FwmIzO/8PAlqf6tjNSfcAxuHCyrOKXGLGOg10MmY5J4KDn7B1SBF/9ZCUACf3H7HZ02jaYTToQuAH77AWFu5CuE6AiT8dljAoGliTbCk1r7MsR/KRfa0="
+sudo: required
+
+language: c
+
+services:
+  - docker
+
+before_script:
+  - echo "Log into docker hub"
+  - echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+
+script:
+  - ./travis-build-scripts/build_image.sh
+  
+after_success:
+  # Don't publish for pull requests?
+  - if [[ -z $TRAVIS_PULL_REQUEST ]]; then ./travis-build-scripts/publish_image.sh; fi
+
