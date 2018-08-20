@@ -23,4 +23,6 @@ script:
   - ./travis-build-scripts/build_image.sh
   
 after_success:
-  - ./travis-build-scripts/publish_image.sh
+  # Don't publish for pull requests?
+  - [[ -z $TRAVIS_PULL_REQUEST ]] && ./travis-build-scripts/publish_image.sh
+
