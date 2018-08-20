@@ -40,4 +40,6 @@ else
   docker tag $REPO:$TRAVIS_COMMIT $REPO:$TRAVIS_BRANCH  
 fi
 
+# Don't push the commit hash
+docker rmi $REPO:$TRAVIS_COMMIT
 docker push $REPO
