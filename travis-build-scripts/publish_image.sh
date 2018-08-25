@@ -30,7 +30,7 @@ if [[ $TRAVIS_BRANCH == "master" ]]; then
   # doesn't contain it.
   musl_version=$(grep '^ENV MUSL_VERSION=' Dockerfile | cut -d '=' -f 2)
   if [[ -z $musl_version ]]; then
-    echo "Couldn't determine the MUSL version from the Dockerfile, so, not aborting."
+    echo "Couldn't determine the MUSL version from the Dockerfile, so, aborting."
     exit 1
   fi
   docker tag $REPO:$TRAVIS_COMMIT $REPO:latest
