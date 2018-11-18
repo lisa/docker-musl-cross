@@ -24,6 +24,10 @@ error_handler() {
   exit 1
 }
 
+echo "Building an image with these Travis environment variables" | tee -a $BUILD_OUTPUT
+printenv | grep ^TRAVIS | grep -vi PASS | sort | tee -a $BUILD_OUTPUT
+
+
 # Set up a repeating loop to send some output to Travis.
 bash -c "while true; do date -u; tail -n 2 build.out; echo; sleep $PING_SLEEP; done" &
 PING_LOOP_PID=$!
