@@ -1,4 +1,4 @@
-FROM arm64v8/debian:jessie
+FROM arm64v8/debian:stretch
 # Upstream maintainer Andrew Dunham <andrew@du.nham.ca>
 
 # Maintainer of this fork is Lisa Seelye
@@ -10,11 +10,6 @@ MAINTAINER Lisa Seelye <lisa@thedoh.com>
 ARG MUSL_VERSION=1.1.20
 
 ENV MUSL_VERSION=${MUSL_VERSION}
-
-# workaround for missing security sources for arm64
-RUN echo "deb http://deb.debian.org/debian jessie main" > /etc/apt/sources.list && \
-    echo "deb http://deb.debian.org/debian jessie-updates main"  >> /etc/apt/sources.list
-
 
 # Install build tools
 RUN apt-get update && \
@@ -41,6 +36,7 @@ RUN mkdir /build &&                                                            \
     git clone https://github.com/lisa/musl-cross.git &&                        \
     cd musl-cross &&                                                           \
     echo 'GCC_BUILTIN_PREREQS=yes' >> config.sh &&                             \
+    echo 'MAKEFLAGS=-j2' >> config.sh &&                                       \
     sed -i -e "s/^MUSL_VERSION=.*\$/MUSL_VERSION=${MUSL_VERSION}/" defs.sh &&  \
     ./build.sh &&                                                              \
     cd / &&                                                                    \
