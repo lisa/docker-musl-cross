@@ -11,6 +11,11 @@ ARG MUSL_VERSION=1.1.20
 
 ENV MUSL_VERSION=${MUSL_VERSION}
 
+# workaround for missing security sources for arm64
+RUN echo "deb http://deb.debian.org/debian jessie main" > /etc/apt/sources.list && \
+    echo "deb http://deb.debian.org/debian jessie-updates main"  >> /etc/apt/sources.list
+
+
 # Install build tools
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get upgrade -yy && \
