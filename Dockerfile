@@ -10,6 +10,8 @@ ARG MUSL_VERSION=1.1.20
 
 ENV MUSL_VERSION=${MUSL_VERSION}
 
+RUN /usr/bin/file /bin/dash
+
 # Install build tools
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get upgrade -yy && \
