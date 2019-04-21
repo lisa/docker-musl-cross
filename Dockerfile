@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 # Upstream maintainer Andrew Dunham <andrew@du.nham.ca>
 
 # Maintainer of this fork is Lisa Seelye
