@@ -6,8 +6,9 @@ MAINTAINER Lisa Seelye <lisa@thedoh.com>
 
 # Build this version.
 # This is 'magic' for publishing too.
+ARG MUSL_VERSION=1.1.20
 
-ENV MUSL_VERSION=1.1.20
+ENV MUSL_VERSION=${MUSL_VERSION}
 
 # Install build tools
 RUN apt-get update && \
