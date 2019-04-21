@@ -39,8 +39,9 @@ RUN mkdir /build &&                                                            \
     ./build.sh &&                                                              \
     cd / &&                                                                    \
     apt-get clean &&                                                           \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /build
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /build &&                    \
+    ln -s $(find /opt/cross -maxdepth 1 -mindepth 1 -type d -print) /opt/cross/musl-${MUSL_VERSION}
 
 
-ENV PATH $PATH:/opt/cross/x86_64-linux-musl/bin
+ENV PATH $PATH:/opt/cross/musl-${MUSL_VERSION}
 CMD /bin/bash
